@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import React from "react";
 import { useState, useEffect } from "react";
-import Popular from "./Popular";
 
 const Details = () => {
   const [veggie, setVeggie] = useState([]);
@@ -74,7 +73,7 @@ const styles = StyleSheet.create({
   },
 
   recipeImg: {
-    width: 350,
+    width: 370,
     height: 400,
     borderRadius: 50,
   },
