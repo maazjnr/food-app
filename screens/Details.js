@@ -30,13 +30,17 @@ const Details = () => {
     <SafeAreaView style={styles.Container}>
       <View style={styles.textContainer}>
         <Text style={styles.welcomeToText}>Welcome to FoodLandRest</Text>
-        <TextInput keyboardType="text" style={styles.inputStyle} placeholder="Search Food"/>
+        <TextInput
+          keyboardType="text"
+          style={styles.inputStyle}
+          placeholder="Search Food"
+        />
       </View>
-    
+
       <FlatList
         style={styles.FlatStyle}
         data={veggie}
-        keyExtractor={({ id }, index) => id}
+        keyExtractor={(myItem) => myItem.id}
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
@@ -52,7 +56,6 @@ const Details = () => {
           );
         }}
       />
-
     </SafeAreaView>
   );
 };
@@ -63,7 +66,7 @@ const styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "transparent",
     justifyContent: "center",
-    alignItems:"center",
+    alignItems: "center",
     textAlign: "center",
   },
 
@@ -98,7 +101,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingLeft: 20,
     paddingRight: 20,
-    marginTop: 10
+    marginTop: 10,
   },
 
   FlatStyle: {
@@ -109,15 +112,15 @@ const styles = StyleSheet.create({
   textContainer: {
     width: "100%",
     padding: 20,
-    textAlign: "center"
+    textAlign: "center",
   },
 
   welcomeToText: {
     fontSize: 20,
-    color: "#ff781f",
+    color: "#ff701f",
     fontWeight: "bold",
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 });
 
 export default Details;

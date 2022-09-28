@@ -4,7 +4,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import Details from './screens/Details';
 import Home from './screens/Home';
-import Popular from './screens/Popular';
 
 
 const theme = {
@@ -29,7 +28,6 @@ export default function App() {
     >
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Details" component={Details} />
-      <Stack.Screen name="Popular" component={Popular} />
     </Stack.Navigator>
   </NavigationContainer>
   );
