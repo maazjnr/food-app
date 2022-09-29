@@ -24,7 +24,7 @@ const navigation = useNavigation();
       </View>
 
       <TouchableOpacity style={styles.getStartedBtn} 
-      onPress={() => navigation.navigate("Details")}>
+      onPress={() => navigation.navigate("TabNavigator")}>
         <Text style={styles.btnText}>Get Started</Text>
       </TouchableOpacity>
       </SafeAreaView>
@@ -82,3 +82,15 @@ const styles = StyleSheet.create({
   
 
 export default Home
+
+
+
+
+
+
+
+
+
+
+
+

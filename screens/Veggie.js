@@ -1,16 +1,29 @@
 import {
   View,
   Text,
-  StyleSheet,
-  FlatList,
-  Image,
+  ScrollView,
   TextInput,
-  SafeAreaView,
+  FlatList,
+  StyleSheet,
+  Image,
 } from "react-native";
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useLayoutEffect, useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
+import { useTailwind } from "tailwind-rn";
+import { EvilIcons } from "@expo/vector-icons";
+import Category from "../components/Category";
 
-const Details = () => {
+const Veggie = () => {
+  const navigation = useNavigation();
+  const tw = useTailwind();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, []);
+
   const [veggie, setVeggie] = useState([]);
   let myApi = "dc08124ff78a4ea9855372247525457d";
 
@@ -20,20 +33,46 @@ const Details = () => {
 
   const getVeggie = async () => {
     const api = await fetch(
-      `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=3`
+      `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=1`
     );
     const data = await api.json();
     setVeggie(data.recipes);
   };
 
+  const [input, setInput] = useState("");
+
   return (
-    <SafeAreaView style={styles.Container}>
-      <View style={styles.textContainer}>
-        <Text style={styles.welcomeToText}>Welcome to FoodLandRest</Text>
+    <ScrollView>
+      <View
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          position: "relative",
+        }}
+      >
         <TextInput
-          keyboardType="text"
-          style={styles.inputStyle}
-          placeholder="Search Food"
+          placeholder="Search by Customer"
+          value={input}
+          onChangeText={setInput}
+          style={{
+            backgroundColor: "transparent",
+            padding: 20,
+            margin: 15,
+            borderBottomWidth: 2,
+            borderBottomColor: "#ff781f",
+          }}
+        />
+
+        <EvilIcons
+          style={{
+            position: "absolute",
+            padding: 5,
+            right: 25,
+            backgroundColor: "#ececec",
+          }}
+          name="search"
+          size={24}
+          color="black"
         />
       </View>
 
@@ -41,7 +80,7 @@ const Details = () => {
         style={styles.FlatStyle}
         data={veggie}
         keyExtractor={(myItem) => myItem.id}
-        horizontal
+        // horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => {
@@ -56,7 +95,9 @@ const Details = () => {
           );
         }}
       />
-    </SafeAreaView>
+
+      <Category />
+    </ScrollView>
   );
 };
 
@@ -76,9 +117,11 @@ const styles = StyleSheet.create({
   },
 
   recipeImg: {
-    width: 370,
-    height: 400,
-    borderRadius: 50,
+    width: 350,
+    height: 160,
+    alignSelf: "stretch",
+    borderRadius: 20,
+    margin: 20,
   },
 
   titleText: {
@@ -123,4 +166,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Details;
+export default Veggie;
