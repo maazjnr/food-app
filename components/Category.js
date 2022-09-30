@@ -7,8 +7,8 @@ import {
   StyleSheet,
   Image,
 } from "react-native";
-import React, { useLayoutEffect, useEffect, useState } from "react";
-import { TouchableOpacity } from "react-native-web";
+import React, {  useEffect, useState } from "react";
+import { TouchableOpacity } from "react-native";
 
 const Category = () => {
 
