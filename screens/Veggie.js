@@ -24,7 +24,6 @@ const Veggie = () => {
       headerShown: false,
     });
   }, []);
-  
 
   let myApi = "dc08124ff78a4ea9855372247525457d";
 
@@ -38,11 +37,11 @@ const Veggie = () => {
 
   useEffect(() => {
     getVeggie();
-  }, [])
+  }, []);
 
   useEffect(() => {
     getPopular();
-  }, [])
+  }, []);
 
   const getVeggie = async () => {
     const api = await fetch(
@@ -68,14 +67,11 @@ const Veggie = () => {
     setPopular(data.recipes);
   };
 
-  
   const [input, setInput] = useState("");
 
-
-
-
   return (
-    <ScrollView style={{backgroundColor: "#000"}}>
+    <ScrollView style={{ backgroundColor: "#000" }}>
+      {/* search box */}
       <View
         style={{
           display: "flex",
@@ -92,7 +88,7 @@ const Veggie = () => {
             padding: 15,
             margin: 10,
             borderBottomWidth: 2,
-            borderRadius: 10
+            borderRadius: 10,
           }}
         />
 
@@ -101,13 +97,16 @@ const Veggie = () => {
             position: "absolute",
             padding: 5,
             right: 25,
-            
           }}
           name="search"
           size={24}
           color="black"
         />
       </View>
+
+      {/* search box */}
+
+      {/* rendering down items from api */}
       <FlatList
         style={styles.FlatStyle}
         data={veggie}
@@ -117,9 +116,15 @@ const Veggie = () => {
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => {
           return (
-            <View style={{ justifyContent: "center", 
-            display: "flex", alignItems: "center",
-            marginLeft: 10, marginRight: 10 }}>
+            <View
+              style={{
+                justifyContent: "center",
+                display: "flex",
+                alignItems: "center",
+                marginLeft: 10,
+                marginRight: 10,
+              }}
+            >
               <Image
                 resizeMode="cover"
                 style={styles.recipeImg}
@@ -129,8 +134,14 @@ const Veggie = () => {
           );
         }}
       />
-      <Text style={{ marginLeft: 12, fontWeight: "bold", fontSize: 19,
-    color: "#f5c77e" }}>
+      <Text
+        style={{
+          marginLeft: 12,
+          fontWeight: "bold",
+          fontSize: 19,
+          color: "#f5c77e",
+        }}
+      >
         Categories
       </Text>
       <FlatList
@@ -145,8 +156,14 @@ const Veggie = () => {
         }}
       />
 
-<Text style={{ marginLeft: 12, fontWeight: "bold", fontSize: 19,
-color: '#f5c77e' }}>
+      <Text
+        style={{
+          marginLeft: 12,
+          fontWeight: "bold",
+          fontSize: 19,
+          color: "#f5c77e",
+        }}
+      >
         Popular
       </Text>
 
@@ -161,6 +178,8 @@ color: '#f5c77e' }}>
           return <Popular image={item.image} />;
         }}
       />
+
+      {/* rendering down items from api */}
     </ScrollView>
   );
 };

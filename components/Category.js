@@ -1,17 +1,13 @@
 import {
   View,
   Text,
-  ScrollView,
-  TextInput,
-  FlatList,
   StyleSheet,
   Image,
+  TouchableOpacity
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { TouchableOpacity } from "react-native";
 
 const Category = ({image}) => {
-
   return (
     <View style={{ margin: 10 }}>
       <TouchableOpacity style={{ justifyContent: "center" }}>

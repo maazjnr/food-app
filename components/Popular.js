@@ -1,9 +1,6 @@
 import {
     View,
     Text,
-    ScrollView,
-    TextInput,
-    FlatList,
     StyleSheet,
     Image,
   } from "react-native";
@@ -24,7 +21,6 @@ const Popular = ({image}) => {
       );
     };
 
-
     const styles = StyleSheet.create({
         recipeImg: {
             width: 150,
@@ -36,7 +32,6 @@ const Popular = ({image}) => {
           cardContainer: {
             width: "100%",
             height: 300,
-
           }
     })
 
