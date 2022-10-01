@@ -7,53 +7,23 @@ import {
   StyleSheet,
   Image,
 } from "react-native";
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
 
-const Category = () => {
+const Category = ({image}) => {
 
-  const [category, setCategory] = useState([]);
-  let myApi = "dc08124ff78a4ea9855372247525457d";
-
-  useEffect(() => {
-    getCategory();
-  }, []);
-
-  const getCategory = async () => {
-    const api = await fetch(
-      `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=3`
-    );
-    const data = await api.json();
-    setCategory(data.recipes);
-  }
   return (
-    <View style={{margin: 10}}>
-        <FlatList
-        style={styles.FlatStyle}
-        data={category}
-        keyExtractor={(myItem) => myItem.id}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => {
-          return (
-            <TouchableOpacity style={{ justifyContent: "center" }}>
-              <Image
-                resizeMode="cover"
-                style={styles.recipeImg}
-                source={{ uri: `${item.image}` }}
-              />
-            </TouchableOpacity >
-          );
-        }}
-      />
-
-      <Text style={
-        {margin: 10, fontWeight: "bold",
-        fontSize: 19}}>Category</Text>
+    <View style={{ margin: 10 }}>
+      <TouchableOpacity style={{ justifyContent: "center" }}>
+        <Image
+          resizeMode="cover"
+          style={styles.recipeImg}
+          source={{ uri: `${image}` }}
+        />
+      </TouchableOpacity>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   Container: {
@@ -74,8 +44,7 @@ const styles = StyleSheet.create({
     width: 150,
     height: 160,
     alignSelf: "stretch",
-    borderRadius: 20,
-    margin: 5,
+    borderRadius: 10,
   },
 
   titleText: {
@@ -120,5 +89,4 @@ const styles = StyleSheet.create({
   },
 });
 
-
-export default Category
+export default Category;

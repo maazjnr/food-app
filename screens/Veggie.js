@@ -13,6 +13,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useTailwind } from "tailwind-rn";
 import { EvilIcons } from "@expo/vector-icons";
 import Category from "../components/Category";
+import Popular from "../components/Popular";
 
 const Veggie = () => {
   const navigation = useNavigation();
@@ -23,13 +24,25 @@ const Veggie = () => {
       headerShown: false,
     });
   }, []);
+  
+
+  let myApi = "dc08124ff78a4ea9855372247525457d";
 
   const [veggie, setVeggie] = useState([]);
-  let myApi = "dc08124ff78a4ea9855372247525457d";
+  const [category, setCategory] = useState([]);
+  const [popular, setPopular] = useState([]);
+
+  useEffect(() => {
+    getCategory();
+  }, []);
 
   useEffect(() => {
     getVeggie();
-  }, []);
+  }, [])
+
+  useEffect(() => {
+    getPopular();
+  }, [])
 
   const getVeggie = async () => {
     const api = await fetch(
@@ -39,10 +52,30 @@ const Veggie = () => {
     setVeggie(data.recipes);
   };
 
+  const getCategory = async () => {
+    const api = await fetch(
+      `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=3`
+    );
+    const data = await api.json();
+    setCategory(data.recipes);
+  };
+
+  const getPopular = async () => {
+    const api = await fetch(
+      `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=3`
+    );
+    const data = await api.json();
+    setPopular(data.recipes);
+  };
+
+  
   const [input, setInput] = useState("");
 
+
+
+
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: "#000"}}>
       <View
         style={{
           display: "flex",
@@ -55,11 +88,11 @@ const Veggie = () => {
           value={input}
           onChangeText={setInput}
           style={{
-            backgroundColor: "transparent",
-            padding: 20,
-            margin: 15,
+            backgroundColor: "#f5c77e",
+            padding: 15,
+            margin: 10,
             borderBottomWidth: 2,
-            borderBottomColor: "#ff781f",
+            borderRadius: 10
           }}
         />
 
@@ -68,14 +101,13 @@ const Veggie = () => {
             position: "absolute",
             padding: 5,
             right: 25,
-            backgroundColor: "#ececec",
+            
           }}
           name="search"
           size={24}
           color="black"
         />
       </View>
-
       <FlatList
         style={styles.FlatStyle}
         data={veggie}
@@ -85,7 +117,9 @@ const Veggie = () => {
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => {
           return (
-            <View style={{ justifyContent: "center" }}>
+            <View style={{ justifyContent: "center", 
+            display: "flex", alignItems: "center",
+            marginLeft: 10, marginRight: 10 }}>
               <Image
                 resizeMode="cover"
                 style={styles.recipeImg}
@@ -95,8 +129,38 @@ const Veggie = () => {
           );
         }}
       />
+      <Text style={{ marginLeft: 12, fontWeight: "bold", fontSize: 19,
+    color: "#f5c77e" }}>
+        Categories
+      </Text>
+      <FlatList
+        style={styles.FlatStyle}
+        data={category}
+        keyExtractor={(myItem) => myItem.id}
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        renderItem={({ item }) => {
+          return <Category image={item.image} />;
+        }}
+      />
 
-      <Category />
+<Text style={{ marginLeft: 12, fontWeight: "bold", fontSize: 19,
+color: '#f5c77e' }}>
+        Popular
+      </Text>
+
+      <FlatList
+        style={styles.FlatStyle}
+        data={popular}
+        keyExtractor={(myItem) => myItem.id}
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        renderItem={({ item }) => {
+          return <Popular image={item.image} />;
+        }}
+      />
     </ScrollView>
   );
 };
@@ -117,11 +181,10 @@ const styles = StyleSheet.create({
   },
 
   recipeImg: {
-    width: 350,
+    width: "100%",
     height: 160,
-    alignSelf: "stretch",
-    borderRadius: 20,
-    margin: 20,
+    borderRadius: 10,
+    margin: 5,
   },
 
   titleText: {
