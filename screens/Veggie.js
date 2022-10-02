@@ -43,28 +43,53 @@ const Veggie = () => {
     getPopular();
   }, []);
 
+  // fetching veggie api request
+
   const getVeggie = async () => {
-    const api = await fetch(
-      `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=1`
-    );
-    const data = await api.json();
-    setVeggie(data.recipes);
+    const check = localStorage.getItem("Veggie");
+    if(check) {
+      setVeggie(JSON.parse(check))
+    } else{
+      const api = await fetch(
+        `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=3`
+      );
+      const data = await api.json();
+      localStorage.setItem("veggie", JSON.stringify(data.recipes))
+      setVeggie(data.recipes);
+    }
   };
+  
+
+// fetching category api request
 
   const getCategory = async () => {
-    const api = await fetch(
-      `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=3`
-    );
-    const data = await api.json();
-    setCategory(data.recipes);
+    const check = localStorage.getItem("category");
+    if(check) {
+      setCategory(JSON.parse(check))
+    } else{
+      const api = await fetch(
+        `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=9`
+      );
+      const data = await api.json();
+
+      localStorage.setItem("category", JSON.stringify(data.recipes))
+      setCategory(data.recipes);
+    }
   };
 
+  // fetching popular api request
   const getPopular = async () => {
-    const api = await fetch(
-      `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=3`
-    );
-    const data = await api.json();
-    setPopular(data.recipes);
+    const check = localStorage.getItem("popular");
+    if(check) {
+      setPopular(JSON.parse(check))
+    } else{
+      const api = await fetch(
+        `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=9`
+      );
+      const data = await api.json();
+      localStorage.setItem("popular", JSON.stringify(data.recipes))
+      setPopular(data.recipes);
+    }
   };
 
   const [input, setInput] = useState("");
@@ -111,7 +136,7 @@ const Veggie = () => {
         style={styles.FlatStyle}
         data={veggie}
         keyExtractor={(myItem) => myItem.id}
-        // horizontal
+        horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => {
