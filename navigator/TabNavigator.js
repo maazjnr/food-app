@@ -6,6 +6,7 @@ import Popular from '../screens/Popular';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 
+
 const Tab = createBottomTabNavigator()
 
 const TabNavigator = () => {
