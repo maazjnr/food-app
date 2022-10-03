@@ -29,7 +29,14 @@ const Popular = ({ image, title, price }) => {
           {title}
         </Text>
 
-        <TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexDirection: "row",
+          }}
+        >
           {priceArray.map((price) => {
             return (
               <SafeAreaView
@@ -40,6 +47,7 @@ const Popular = ({ image, title, price }) => {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  flexDirection: "row",
                   marginTop: 10,
                   borderRadius: 5,
                 }}
@@ -49,6 +57,7 @@ const Popular = ({ image, title, price }) => {
                     textAlign: "center",
                     fontSize: 20,
                     fontWeight: "bold",
+                    color: "#fff"
                   }}
                 >
                   {price.price}
@@ -56,8 +65,20 @@ const Popular = ({ image, title, price }) => {
               </SafeAreaView>
             );
           })}
+
+          <View>
+            <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+              ⭐4.7  {""}
+              <Text style={{ fontWeight: "100", color: "#777" }}>
+                941 Rating
+              </Text>
+              
+            </Text>
+          </View>
         </TouchableOpacity>
       </View>
+
+      <Text style={{paddingLeft: 10, color:"#777"}}>Olivia Food</Text>
     </TouchableOpacity>
   );
 };
@@ -73,9 +94,8 @@ const styles = StyleSheet.create({
 
   popularBg: {
     backgroundColor: "#fff",
-    marginBottom: 30,
     margin: 5,
-    height: 240,
+    height: 260,
     borderRadius: 10,
     shadowColor: "#737373",
     shadowOffset: {

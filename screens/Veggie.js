@@ -112,11 +112,12 @@ const Veggie = () => {
   return (
     <ScrollView
       style={{
-        backgroundColor: "#fff",
+        backgroundColor: "#111",
         padding: 10,
       }}
       showsVerticalScrollIndicator={false}
     >
+
       {/* search box */}
       <View
         style={{
@@ -185,11 +186,11 @@ const Veggie = () => {
         style={{
           fontWeight: "bold",
           fontSize: 19,
-          color: "#111",
+          color: "#ff701f",
           padding: 10,
         }}
       >
-        Categories
+        Vegetarian
       </Text>
       <FlatList
         style={styles.FlatStyle}
@@ -216,7 +217,7 @@ const Veggie = () => {
           style={{
             fontWeight: "bold",
             fontSize: 15,
-            color: "#111",
+            color: "#fff",
           }}
         >
           Popular
@@ -245,6 +246,7 @@ const Veggie = () => {
           return <Popular image={item.image} title={item.title} />;
         }}
       />
+
 
       {/* rendering down items from api */}
     </ScrollView>
