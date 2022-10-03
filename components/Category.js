@@ -37,9 +37,8 @@ const styles = StyleSheet.create({
   },
 
   recipeImg: {
-    width: 150,
-    height: 160,
-    alignSelf: "stretch",
+    width: 160,
+    height: 150,
     borderRadius: 10,
   },
 
