@@ -9,8 +9,8 @@ import React, { useEffect, useState } from "react";
 
 const Category = ({image}) => {
   return (
-    <View style={{ margin: 10 }}>
-      <TouchableOpacity style={{ justifyContent: "center" }}>
+    <View >
+      <TouchableOpacity style={{ justifyContent: "center",  margin: 5 }}>
         <Image
           resizeMode="cover"
           style={styles.recipeImg}

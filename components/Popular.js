@@ -9,8 +9,9 @@ import {
 
 const Popular = ({image}) => {
     return (
-        <View style={{ margin: 10 }}>
-          <TouchableOpacity style={{ justifyContent: "center" }}>
+        <View>
+
+          <TouchableOpacity style={{ justifyContent: "center", margin: 5 }}>
             <Image
               resizeMode="cover"
               style={styles.recipeImg}
@@ -23,7 +24,7 @@ const Popular = ({image}) => {
 
     const styles = StyleSheet.create({
         recipeImg: {
-            width: 150,
+            width: 250,
             height: 160,
             alignSelf: "stretch",
             borderRadius: 10,

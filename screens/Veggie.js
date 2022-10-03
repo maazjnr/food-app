@@ -14,6 +14,7 @@ import { useTailwind } from "tailwind-rn";
 import { EvilIcons } from "@expo/vector-icons";
 import Category from "../components/Category";
 import Popular from "../components/Popular";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Veggie = () => {
   const navigation = useNavigation();
@@ -46,56 +47,74 @@ const Veggie = () => {
   // fetching veggie api request
 
   const getVeggie = async () => {
-    const check = localStorage.getItem("Veggie");
+    try {
+    const check = await AsyncStorage.getItem("veggie");
     if(check) {
       setVeggie(JSON.parse(check))
     } else{
-      const api = await fetch(
-        `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=3`
-      );
-      const data = await api.json();
-      localStorage.setItem("veggie", JSON.stringify(data.recipes))
-      setVeggie(data.recipes);
+
+        const api = await fetch(
+          `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=3`
+        );
+        const data = await api.json();
+  
+       await AsyncStorage.setItem("veggie", JSON.stringify(data.recipes))
+        setVeggie(data.recipes);
+      } 
+    } catch (error) {
+      console.log(error)
     }
   };
   
 
 // fetching category api request
 
+// .catch(error => console.log(error))
+
   const getCategory = async () => {
-    const check = localStorage.getItem("category");
+    try {
+    const check = await AsyncStorage.getItem("category");
     if(check) {
       setCategory(JSON.parse(check))
     } else{
-      const api = await fetch(
-        `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=9`
-      );
-      const data = await api.json();
 
-      localStorage.setItem("category", JSON.stringify(data.recipes))
-      setCategory(data.recipes);
+        const api = await fetch(
+          `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=9`
+        );
+        const data = await api.json();
+  
+        await AsyncStorage.setItem("category", JSON.stringify(data.recipes))
+        setCategory(data.recipes);
+      } 
+    } catch (error) {
+      console.log(error)
     }
   };
 
   // fetching popular api request
   const getPopular = async () => {
-    const check = localStorage.getItem("popular");
+    try {
+    const check = await AsyncStorage.getItem("popular");
     if(check) {
       setPopular(JSON.parse(check))
     } else{
-      const api = await fetch(
-        `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=9`
-      );
-      const data = await api.json();
-      localStorage.setItem("popular", JSON.stringify(data.recipes))
-      setPopular(data.recipes);
-    }
+        const api = await fetch(
+          `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=9`
+        );
+        const data = await api.json();
+        await AsyncStorage.setItem("popular", JSON.stringify(data.recipes))
+        setPopular(data.recipes);
+      } 
+    } catch (error) {
+        console.log(error)
+      }
   };
 
   const [input, setInput] = useState("");
 
   return (
-    <ScrollView style={{ backgroundColor: "#000" }}>
+    <ScrollView style={{ backgroundColor: "#111", padding: 10 }}
+    showsVerticalScrollIndicator={false}>
       {/* search box */}
       <View
         style={{
@@ -111,8 +130,8 @@ const Veggie = () => {
           style={{
             backgroundColor: "#f5c77e",
             padding: 15,
-            margin: 10,
-            borderBottomWidth: 2,
+            margin: 5,
+            marginBottom: 10,
             borderRadius: 10,
           }}
         />
@@ -122,6 +141,7 @@ const Veggie = () => {
             position: "absolute",
             padding: 5,
             right: 25,
+
           }}
           name="search"
           size={24}
@@ -161,10 +181,10 @@ const Veggie = () => {
       />
       <Text
         style={{
-          marginLeft: 12,
           fontWeight: "bold",
           fontSize: 19,
           color: "#f5c77e",
+          padding: 5
         }}
       >
         Categories
@@ -183,10 +203,10 @@ const Veggie = () => {
 
       <Text
         style={{
-          marginLeft: 12,
           fontWeight: "bold",
           fontSize: 19,
           color: "#f5c77e",
+          padding: 5
         }}
       >
         Popular
@@ -225,10 +245,10 @@ const styles = StyleSheet.create({
   },
 
   recipeImg: {
-    width: "100%",
+    width: 280,
     height: 160,
     borderRadius: 10,
-    margin: 5,
+    marginLeft: -5
   },
 
   titleText: {
