@@ -14,7 +14,7 @@ import { useTailwind } from "tailwind-rn";
 import { EvilIcons } from "@expo/vector-icons";
 import Category from "../components/Category";
 import Popular from "../components/Popular";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Veggie = () => {
   const navigation = useNavigation();
@@ -48,73 +48,75 @@ const Veggie = () => {
 
   const getVeggie = async () => {
     try {
-    const check = await AsyncStorage.getItem("veggie");
-    if(check) {
-      setVeggie(JSON.parse(check))
-    } else{
-
+      const check = await AsyncStorage.getItem("veggie");
+      if (check) {
+        setVeggie(JSON.parse(check));
+      } else {
         const api = await fetch(
-          `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=3`
+          `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=5`
         );
         const data = await api.json();
-  
-       await AsyncStorage.setItem("veggie", JSON.stringify(data.recipes))
+
+        await AsyncStorage.setItem("veggie", JSON.stringify(data.recipes));
         setVeggie(data.recipes);
-      } 
+      }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
-  
 
-// fetching category api request
+  // fetching category api request
 
-// .catch(error => console.log(error))
+  // .catch(error => console.log(error))
 
   const getCategory = async () => {
     try {
-    const check = await AsyncStorage.getItem("category");
-    if(check) {
-      setCategory(JSON.parse(check))
-    } else{
-
+      const check = await AsyncStorage.getItem("category");
+      if (check) {
+        setCategory(JSON.parse(check));
+      } else {
         const api = await fetch(
           `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=9`
         );
         const data = await api.json();
-  
-        await AsyncStorage.setItem("category", JSON.stringify(data.recipes))
+
+        await AsyncStorage.setItem("category", JSON.stringify(data.recipes));
         setCategory(data.recipes);
-      } 
+      }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
   // fetching popular api request
   const getPopular = async () => {
     try {
-    const check = await AsyncStorage.getItem("popular");
-    if(check) {
-      setPopular(JSON.parse(check))
-    } else{
+      const check = await AsyncStorage.getItem("popular");
+      if (check) {
+        setPopular(JSON.parse(check));
+      } else {
         const api = await fetch(
           `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=9`
         );
         const data = await api.json();
-        await AsyncStorage.setItem("popular", JSON.stringify(data.recipes))
+        await AsyncStorage.setItem("popular", JSON.stringify(data.recipes));
         setPopular(data.recipes);
-      } 
-    } catch (error) {
-        console.log(error)
       }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const [input, setInput] = useState("");
 
   return (
-    <ScrollView style={{ backgroundColor: "#111", padding: 10 }}
-    showsVerticalScrollIndicator={false}>
+    <ScrollView
+      style={{
+        backgroundColor: "#fff",
+        padding: 10,
+      }}
+      showsVerticalScrollIndicator={false}
+    >
       {/* search box */}
       <View
         style={{
@@ -128,11 +130,12 @@ const Veggie = () => {
           value={input}
           onChangeText={setInput}
           style={{
-            backgroundColor: "#f5c77e",
+            backgroundColor: "#fff",
             padding: 15,
             margin: 5,
             marginBottom: 10,
             borderRadius: 10,
+            borderWidth: 1,
           }}
         />
 
@@ -141,7 +144,6 @@ const Veggie = () => {
             position: "absolute",
             padding: 5,
             right: 25,
-
           }}
           name="search"
           size={24}
@@ -153,7 +155,6 @@ const Veggie = () => {
 
       {/* rendering down items from api */}
       <FlatList
-        style={styles.FlatStyle}
         data={veggie}
         keyExtractor={(myItem) => myItem.id}
         horizontal
@@ -175,6 +176,7 @@ const Veggie = () => {
                 style={styles.recipeImg}
                 source={{ uri: `${item.image}` }}
               />
+              <Text style={{ color: "#fff" }}>{item.tile}</Text>
             </View>
           );
         }}
@@ -183,8 +185,8 @@ const Veggie = () => {
         style={{
           fontWeight: "bold",
           fontSize: 19,
-          color: "#f5c77e",
-          padding: 5
+          color: "#111",
+          padding: 10,
         }}
       >
         Categories
@@ -201,16 +203,36 @@ const Veggie = () => {
         }}
       />
 
-      <Text
+      <View
         style={{
-          fontWeight: "bold",
-          fontSize: 19,
-          color: "#f5c77e",
-          padding: 5
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: "row",
+          alignItems: "center",
+          marginLeft: 7,
         }}
       >
-        Popular
-      </Text>
+        <Text
+          style={{
+            fontWeight: "bold",
+            fontSize: 15,
+            color: "#111",
+          }}
+        >
+          Popular
+        </Text>
+
+        <Text
+          style={{
+            fontWeight: "bold",
+            fontSize: 15,
+            color: "#ff781f",
+            padding: 10,
+          }}
+        >
+          See All
+        </Text>
+      </View>
 
       <FlatList
         style={styles.FlatStyle}
@@ -220,7 +242,7 @@ const Veggie = () => {
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => {
-          return <Popular image={item.image} />;
+          return <Popular image={item.image} title={item.title} />;
         }}
       />
 
@@ -248,7 +270,7 @@ const styles = StyleSheet.create({
     width: 280,
     height: 160,
     borderRadius: 10,
-    marginLeft: -5
+    marginLeft: -5,
   },
 
   titleText: {
@@ -272,11 +294,6 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     marginTop: 10,
-  },
-
-  FlatStyle: {
-    width: "100%",
-    height: "100%",
   },
 
   textContainer: {

@@ -7,9 +7,9 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 
-const Category = ({image}) => {
+const Category = ({image, name}) => {
   return (
-    <View >
+    <View>
       <TouchableOpacity style={{ justifyContent: "center",  margin: 5 }}>
         <Image
           resizeMode="cover"
@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
   },
 
   recipeImg: {
-    width: 160,
-    height: 150,
+    width: 100,
+    height: 110,
     borderRadius: 10,
   },
 
