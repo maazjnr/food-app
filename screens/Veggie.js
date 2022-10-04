@@ -2,23 +2,20 @@ import {
   View,
   Text,
   ScrollView,
-  TextInput,
   FlatList,
   StyleSheet,
   Image,
 } from "react-native";
 import React, { useLayoutEffect, useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { Ionicons } from "@expo/vector-icons";
-import { useTailwind } from "tailwind-rn";
-import { EvilIcons } from "@expo/vector-icons";
 import Category from "../components/Category";
 import Popular from "../components/Popular";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Search from "../components/Search";
+
 
 const Veggie = () => {
   const navigation = useNavigation();
-  const tw = useTailwind();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -67,8 +64,6 @@ const Veggie = () => {
 
   // fetching category api request
 
-  // .catch(error => console.log(error))
-
   const getCategory = async () => {
     try {
       const check = await AsyncStorage.getItem("category");
@@ -76,7 +71,7 @@ const Veggie = () => {
         setCategory(JSON.parse(check));
       } else {
         const api = await fetch(
-          `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=9`
+          `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=15`
         );
         const data = await api.json();
 
@@ -112,46 +107,14 @@ const Veggie = () => {
   return (
     <ScrollView
       style={{
-        backgroundColor: "#111",
+        backgroundColor: "#fff",
         padding: 10,
       }}
       showsVerticalScrollIndicator={false}
     >
 
       {/* search box */}
-      <View
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          position: "relative",
-        }}
-      >
-        <TextInput
-          placeholder="Search by Customer"
-          value={input}
-          onChangeText={setInput}
-          style={{
-            backgroundColor: "#fff",
-            padding: 15,
-            margin: 5,
-            marginBottom: 10,
-            borderRadius: 10,
-            borderWidth: 1,
-          }}
-        />
-
-        <EvilIcons
-          style={{
-            position: "absolute",
-            padding: 5,
-            right: 25,
-          }}
-          name="search"
-          size={24}
-          color="black"
-        />
-      </View>
-
+      <Search />
       {/* search box */}
 
       {/* rendering down items from api */}
@@ -186,8 +149,8 @@ const Veggie = () => {
         style={{
           fontWeight: "bold",
           fontSize: 19,
-          color: "#ff701f",
-          padding: 10,
+          color: "#111",
+          padding: 10
         }}
       >
         Vegetarian
@@ -210,14 +173,14 @@ const Veggie = () => {
           justifyContent: "space-between",
           flexDirection: "row",
           alignItems: "center",
-          marginLeft: 7,
+          marginLeft: 10,
         }}
       >
         <Text
           style={{
             fontWeight: "bold",
             fontSize: 15,
-            color: "#fff",
+            color: "#111",
           }}
         >
           Popular

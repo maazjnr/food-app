@@ -1,16 +1,10 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity
-} from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 
-const Category = ({image, name}) => {
+const Category = ({ image, name }) => {
   return (
     <View>
-      <TouchableOpacity style={{ justifyContent: "center",  margin: 5 }}>
+      <TouchableOpacity style={{ justifyContent: "center", margin: 5 }}>
         <Image
           resizeMode="cover"
           style={styles.recipeImg}
