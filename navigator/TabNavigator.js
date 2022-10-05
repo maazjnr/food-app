@@ -12,15 +12,18 @@ const Tab = createBottomTabNavigator()
 const TabNavigator = () => {
 
     return (
-        <Tab.Navigator tabBarOptions={{
-          activeTintColor: "#111",
-          inactiveTintColor: "#f5c77e",
-          activeBackgroundColor: '#ff781f',
-          inactiveBackgroundColor: '#111',
-              style: {
-                    backgroundColor: '#CE4418',
-              }
-       }}>
+        <Tab.Navigator screenOptions={{
+          "tabBarActiveTintColor": "#111",
+          "tabBarInactiveTintColor": "#f5c77e",
+          "tabBarActiveBackgroundColor": "#ff781f",
+          "tabBarInactiveBackgroundColor": "#111",
+          "tabBarStyle": [
+            {
+              "display": "flex"
+            },
+            null
+          ]
+        }}>
 
           <Tab.Screen options={{
             tabBarLabel: 'Veggie',
