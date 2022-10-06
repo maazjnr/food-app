@@ -1,47 +1,28 @@
-import { View, Text, TextInput } from 'react-native'
-import React, { useState } from 'react'
-import { Ionicons } from "@expo/vector-icons";
-import { EvilIcons } from "@expo/vector-icons";
+import { View, Text, Image } from "react-native";
+import React, { useState } from "react";
 
-const Search = () => {
-
- const [input, setInput] = useState("")
-
+const Searched = ({ item }) => {
+  const [input, setInput] = useState("");
 
   return (
     <View
-    style={{
-      display: "flex",
-      justifyContent: "center",
-      position: "relative",
-    }}
-  >
-    <TextInput
-      placeholder="Search by Customer"
-      value={input}
-      onChangeText={setInput}
       style={{
-        backgroundColor: "#fff",
-        padding: 15,
-        margin: 5,
-        marginBottom: 10,
-        borderRadius: 10,
-        borderWidth: 1,
+        display: "flex",
+        justifyContent: "center",
+        position: "relative",
       }}
-    />
+    >
+      <Text>
+        {item.title.toUpperCase()}
+      </Text>
 
-    <EvilIcons
-      style={{
-        position: "absolute",
-        padding: 5,
-        right: 25,
-      }}
-      name="search"
-      size={24}
-      color="black"
-    />
-  </View>
-  )
-}
+      <Image
+        source={item.image}
+        style={{ width: 350, height: 350 }}
+        resizeMode="cover"
+      />
+    </View>
+  );
+};
 
-export default Search
+export default Searched;

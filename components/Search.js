@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useState, useEffect } from "react";
 // import all the components we are going to use
 import {
   SafeAreaView,
@@ -8,16 +7,21 @@ import {
   View,
   FlatList,
   TextInput,
-} from 'react-native';
+  Image,
+} from "react-native";
+import { EvilIcons } from "@expo/vector-icons";
+import Searched from "../screens/Searched";
 
 const Search = () => {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
   const myApi = "dc08124ff78a4ea9855372247525457d";
 
   useEffect(() => {
-    fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${myApi}&number=10`)
+    fetch(
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${myApi}&number=3`
+    )
       .then((response) => response.json())
       .then((responseJson) => {
         setFilteredDataSource(responseJson.results);
@@ -37,7 +41,7 @@ const Search = () => {
         // Applying filter for the inserted text in search bar
         const itemData = item.title
           ? item.title.toUpperCase()
-          : ''.toUpperCase();
+          : "".toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
@@ -54,11 +58,14 @@ const Search = () => {
   const ItemView = ({ item }) => {
     return (
       // Flat List Item
-      <Text style={styles.itemStyle} onPress={() => getItem(item)}>
-        {item.id}
-        {'.'}
-        {item.title.toUpperCase()}
-      </Text>
+      <SafeAreaView>
+        <Text style={styles.itemStyle} onPress={() => getItem(item)}>
+          {item.title.toUpperCase()}
+        </Text>
+
+        {/* <Image source={item.image} 
+      style={{width: 350, height: 350}} resizeMode="cover" /> */}
+      </SafeAreaView>
     );
   };
 
@@ -68,54 +75,60 @@ const Search = () => {
       <View
         style={{
           height: 0.5,
-          width: '100%',
-          backgroundColor: '#C8C8C8',
+          width: "100%",
+          backgroundColor: "#C8C8C8",
         }}
       />
     );
   };
 
-  const getItem = (item) => {
-    // Function for click on an item
-    alert('Id : ' + item.id + ' Title : ' + item.title);
-  };
-
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <TextInput
-          style={styles.textInputStyle}
-          onChangeText={(text) => searchFilterFunction(text)}
-          value={search}
-          underlineColorAndroid="transparent"
-          placeholder="Search Here"
-        />
-        <FlatList
-          data={filteredDataSource}
-          keyExtractor={(item, index) => index.toString()}
-          ItemSeparatorComponent={ItemSeparatorView}
-          renderItem={ItemView}
-        />
-      </View>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <TextInput
+        style={styles.textInputStyle}
+        onChangeText={(text) => searchFilterFunction(text)}
+        value={search}
+        underlineColorAndroid="transparent"
+        placeholder="Search Here"
+      />
+
+      <EvilIcons
+        style={{
+          position: "absolute",
+          padding: 20,
+          right: 5,
+        }}
+        onPress={masterDataSource}
+        name="search"
+        size={24}
+        color="black"
+      />
+      <FlatList
+        data={filteredDataSource}
+        keyExtractor={(item, index) => index.toString()}
+        ItemSeparatorComponent={ItemSeparatorView}
+        renderItem={({item}) => <Searched item={item} />} 
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   itemStyle: {
     padding: 10,
   },
   textInputStyle: {
-    height: 40,
+    height: 50,
     borderWidth: 1,
     paddingLeft: 20,
     margin: 5,
-    borderColor: '#009688',
-    backgroundColor: '#FFFFFF',
-    marginBottom: 200
+    marginBottom: 20,
+    borderColor: "#ff701f",
+    backgroundColor: "#FFFFFF",
+    borderRadius: 10,
   },
 });
 

@@ -4,7 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import Veggie from '../screens/Veggie';
 import Popular from '../screens/Popular';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-
+import Searched from '../screens/Searched';
 
 
 const Tab = createBottomTabNavigator()
@@ -38,6 +38,7 @@ const TabNavigator = () => {
               <Ionicons name="ios-fast-food" color={focused ? "#111" : "#FF7815"} size={26} />
             )
           }} name="Popular" component={Popular}/>
+          
 
         </Tab.Navigator>
 

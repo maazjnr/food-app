@@ -12,6 +12,7 @@ import Category from "../components/Category";
 import Popular from "../components/Popular";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Search from "../components/Search";
+import Searched from "./Searched";
 
 
 const Veggie = () => {
@@ -112,9 +113,11 @@ const Veggie = () => {
       }}
       showsVerticalScrollIndicator={false}
     >
-
       {/* search box */}
+
       <Search />
+      {/* <Searched /> */}
+
       {/* search box */}
 
       {/* rendering down items from api */}
