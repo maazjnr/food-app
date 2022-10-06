@@ -113,12 +113,6 @@ const Veggie = () => {
       }}
       showsVerticalScrollIndicator={false}
     >
-      {/* search box */}
-
-      <Search />
-      {/* <Searched /> */}
-
-      {/* search box */}
 
       {/* rendering down items from api */}
       <FlatList
