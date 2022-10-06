@@ -11,9 +11,8 @@ import { useNavigation } from "@react-navigation/native";
 import Category from "../components/Category";
 import Popular from "../components/Popular";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Search from "../components/Search";
-import Searched from "./Searched";
-
+import UserHeader from "../components/UserHeader";
+import PopularPicks from "../components/PopularPicks";
 
 const Veggie = () => {
   const navigation = useNavigation();
@@ -29,6 +28,7 @@ const Veggie = () => {
   const [veggie, setVeggie] = useState([]);
   const [category, setCategory] = useState([]);
   const [popular, setPopular] = useState([]);
+  const [popularPicks, setPopularPicks] = useState([]);
 
   useEffect(() => {
     getCategory();
@@ -40,6 +40,10 @@ const Veggie = () => {
 
   useEffect(() => {
     getPopular();
+  }, []);
+
+  useEffect(() => {
+    getPopularPicks();
   }, []);
 
   // fetching veggie api request
@@ -103,112 +107,161 @@ const Veggie = () => {
     }
   };
 
-  const [input, setInput] = useState("");
+  // fetching wine api request
+  const getPopularPicks = async () => {
+    try {
+      const check = await AsyncStorage.getItem("ppicks");
+      if (check) {
+        setPopularPicks(JSON.parse(check));
+      } else {
+        const api = await fetch(
+          `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=15`
+        );
+        const data = await api.json();
+        await AsyncStorage.setItem("ppicks", JSON.stringify(data.recipes));
+        popularPicks(data.recipes);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  const [input, setInput] = useState('');
 
   return (
-    <ScrollView
-      style={{
-        backgroundColor: "#fff",
-        padding: 10,
-      }}
-      showsVerticalScrollIndicator={false}
-    >
+    <ScrollView showsVerticalScrollIndicator={false}>
+      {/* Rendering the user header components */}
+      <UserHeader />
+      {/* Rendering the user header components */}
 
-      {/* rendering down items from api */}
-      <FlatList
-        data={veggie}
-        keyExtractor={(myItem) => myItem.id}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => {
-          return (
-            <View
-              style={{
-                justifyContent: "center",
-                display: "flex",
-                alignItems: "center",
-                marginLeft: 10,
-                marginRight: 10,
-              }}
-            >
-              <Image
-                resizeMode="cover"
-                style={styles.recipeImg}
-                source={{ uri: `${item.image}` }}
-              />
-              <Text style={{ color: "#fff" }}>{item.tile}</Text>
-            </View>
-          );
-        }}
-      />
-      <Text
+      <ScrollView
         style={{
-          fontWeight: "bold",
-          fontSize: 19,
-          color: "#111",
-          padding: 10
+          backgroundColor: "#fff",
+          padding: 10,
         }}
+        showsVerticalScrollIndicator={false}
       >
-        Vegetarian
-      </Text>
-      <FlatList
-        style={styles.FlatStyle}
-        data={category}
-        keyExtractor={(myItem) => myItem.id}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => {
-          return <Category image={item.image} />;
-        }}
-      />
-
-      <View
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          flexDirection: "row",
-          alignItems: "center",
-          marginLeft: 10,
-        }}
-      >
-        <Text
-          style={{
-            fontWeight: "bold",
-            fontSize: 15,
-            color: "#111",
+        {/* rendering down items from api */}
+        <FlatList
+          data={veggie}
+          keyExtractor={(myItem) => myItem.id}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => {
+            return (
+              <View
+                style={{
+                  justifyContent: "center",
+                  display: "flex",
+                  alignItems: "center",
+                  marginLeft: 10,
+                  marginRight: 10,
+                  marginBottom: 20,
+                }}
+              >
+                <Image
+                  resizeMode="cover"
+                  style={styles.recipeImg}
+                  source={{ uri: `${item.image}` }}
+                />
+                <Text style={{ color: "#fff" }}>{item.tile}</Text>
+              </View>
+            );
           }}
-        >
-          Popular
-        </Text>
-
+        />
         <Text
           style={{
             fontWeight: "bold",
-            fontSize: 15,
-            color: "#ff781f",
+            fontSize: 19,
+            color: "#111",
             padding: 10,
           }}
         >
-          See All
+          Vegetarian
         </Text>
-      </View>
+        <FlatList
+          style={styles.FlatStyle}
+          data={category}
+          keyExtractor={(myItem) => myItem.id}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => {
+            return <Category image={item.image} />;
+          }}
+        />
 
-      <FlatList
-        style={styles.FlatStyle}
-        data={popular}
-        keyExtractor={(myItem) => myItem.id}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => {
-          return <Popular image={item.image} title={item.title} />;
-        }}
-      />
+        <View
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            flexDirection: "row",
+            alignItems: "center",
+            marginLeft: 10,
+          }}
+        >
+          <Text
+            style={{
+              fontWeight: "bold",
+              fontSize: 15,
+              color: "#111",
+            }}
+          >
+            Popular
+          </Text>
 
+          <Text
+            style={{
+              fontWeight: "bold",
+              fontSize: 15,
+              color: "#ff781f",
+              padding: 10,
+            }}
+          >
+            See All
+          </Text>
+        </View>
 
-      {/* rendering down items from api */}
+        <FlatList
+          style={styles.FlatStyle}
+          data={popular}
+          keyExtractor={(myItem) => myItem.id}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => {
+            return <Popular image={item.image} title={item.title} />;
+          }}
+        />
+
+        <Text
+          style={{
+            fontWeight: "bold",
+            fontSize: 19,
+            color: "#111",
+            padding: 10,
+            marginTop: 20
+          }}
+        >
+          Popular Picks
+        </Text>
+
+        <FlatList
+          style={styles.FlatStyle}
+          data={popularPicks}
+          keyExtractor={(myItem) => myItem.id}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => {
+            return <PopularPicks image={item.image} title={item.title} />;
+          }}
+        />
+
+        {/* rendering down items from api */}
+      </ScrollView>
     </ScrollView>
   );
 };

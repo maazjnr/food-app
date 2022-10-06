@@ -1,11 +1,15 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 
-const Category = ({ image, name }) => {
+const Wine = ({ image, name }) => {
   return (
     <View>
       <TouchableOpacity
-        style={{ justifyContent: "center", margin: 5, marginBottom: 20 }}
+        style={{ justifyContent: "center", 
+        margin: 5, 
+        marginBottom: 20,
+        marginTop: 10
+     }}
       >
         <Image
           resizeMode="cover"
@@ -33,8 +37,8 @@ const styles = StyleSheet.create({
   },
 
   recipeImg: {
-    width: 100,
-    height: 110,
+    width: 250,
+    height: 210,
     borderRadius: 10,
   },
 
@@ -80,4 +84,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Category;
+export default Wine;
