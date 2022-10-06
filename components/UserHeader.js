@@ -21,13 +21,13 @@ const UserHeader = () => {
           justifyContent: "space-between",
           alignItems: "center",
           flexDirection: "row-reverse",
-          padding: 10,
+          padding: 15,
         }}
       >
         <Image
           source={userImage.userImg}
           resizeMode="cover"
-          style={{ width: 30, height: 30 }}
+          style={{ width: 35, height: 35 }}
         />
 
         <Text
@@ -42,7 +42,7 @@ const UserHeader = () => {
         </Text>
       </View>
 
-      <View style={{ marginLeft: 10 }}>
+      <View style={{ marginLeft: 18 }}>
         <Text style={{ color: "#ff781f" }}>Hey, Victoria</Text>
         <Text
           style={{

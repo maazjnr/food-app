@@ -31,7 +31,7 @@ const TabNavigator = () => {
             <MaterialIcons
               name="fastfood"
               color={focused ? "#111" : "#FF781F"}
-              size={20}
+              size={17}
             />
           ),
         }}
@@ -45,7 +45,7 @@ const TabNavigator = () => {
           tabBarIcon: ({ focused }) => (
             <FontAwesome
               name="search"
-              size={20}
+              size={17}
               color={focused ? "#111" : "#FF7815"}
             />
           ),
@@ -61,7 +61,7 @@ const TabNavigator = () => {
             <Ionicons
               name="ios-fast-food"
               color={focused ? "#111" : "#FF7815"}
-              size={20}
+              size={17}
             />
           ),
         }}

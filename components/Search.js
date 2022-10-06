@@ -24,7 +24,6 @@ const Search = () => {
       });
   }, []);
 
-
   const handleSearch = (value) => {
     if (value.length === 0) {
       setFilteredDataSource(filteredDataSource);
