@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { SafeAreaView, View, FlatList } from "react-native";
+import { SafeAreaView, View, FlatList, ScrollView } from "react-native";
 import HomeHeader from "./HomeHeader";
 import Searched from "../screens/Searched";
 
@@ -41,9 +41,10 @@ const Search = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ flex: 1 }}>
-        <View style={{ zIndex: 0 }}>
+    <ScrollView style={{ flex: 1, backgroundColor: "#111",
+    padding: 10 }} showsHorizontalScrollIndicator={false}>
+      <View>
+        <View>
           <FlatList
             data={filteredDataSource}
             renderItem={({ item }) => <Searched data={item} />}
@@ -65,7 +66,7 @@ const Search = () => {
         >
         </View>
       </View>
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 

@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 
-const Wine = ({ image, name }) => {
+const PopularPicks = ({ image, name }) => {
   return (
     <View>
       <TouchableOpacity
@@ -84,4 +84,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Wine;
+export default PopularPicks;

@@ -55,7 +55,7 @@ const Veggie = () => {
         setVeggie(JSON.parse(check));
       } else {
         const api = await fetch(
-          `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=5`
+          `https://api.spoonacular.com/recipes/random?apiKey=${myApi}&number=15`
         );
         const data = await api.json();
 
@@ -283,7 +283,7 @@ const styles = StyleSheet.create({
 
   recipeImg: {
     width: 280,
-    height: 160,
+    height: 230,
     borderRadius: 10,
     marginLeft: -5,
   },

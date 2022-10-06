@@ -1,6 +1,18 @@
 import { View, Text, Image, TextInput } from "react-native";
+import React, {useLayoutEffect} from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const HomeHeader = ({ onSearch }) => {
+
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, []);
+
+  
   return (
     <View>
       <View
@@ -26,8 +38,9 @@ const HomeHeader = ({ onSearch }) => {
           }}
         >
           <TextInput
-            placeholder="Search NFTs"
-            style={{ flex: 1 }}
+            placeholder="Search Food Recipe"
+            style={{ flex: 1, height: 50,
+            padding: 30 }}
             onChangeText={onSearch}
           />
         </View>

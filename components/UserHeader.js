@@ -12,7 +12,8 @@ const UserHeader = () => {
         marginBottom: 20,
         backgroundColor: "#111",
         height: 150,
-
+        borderBottomLeftRadius: 12,
+        borderBottomRightRadius: 12
       }}
     >
       <View

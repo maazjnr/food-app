@@ -5,6 +5,7 @@ import Veggie from "../screens/Veggie";
 import Popular from "../screens/Popular";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
+import Search from "../components/Search";
 
 const Tab = createBottomTabNavigator();
 
@@ -51,7 +52,7 @@ const TabNavigator = () => {
           ),
         }}
         name="Search"
-        component={Popular}
+        component={Search}
       />
 
       <Tab.Screen
