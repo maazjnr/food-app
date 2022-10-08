@@ -20,6 +20,8 @@ const TabNavigator = () => {
         tabBarStyle: [
           {
             display: "flex",
+            borderTopWidth: 0,
+            elevation: 0
           },
           null,
         ],
