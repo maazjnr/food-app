@@ -1,23 +1,37 @@
-import { View, Text, TextInput, StyleSheet } from 'react-native'
-import React from 'react'
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Image,
+  ScrollView,
+} from "react-native";
 
-const Searched = ({searchText, setSearchText}) => {
+const Searched = (props) => {
   return (
-    <View style={styles.container}>
-      <TextInput 
-      placeholder='Search Recipe'
-      style={styles.input}
-      value={searchText}
-      onChangeText={(text) => setSearchText(text)}
+    <ScrollView contentContainerStyle={styles.container}>
+      <TextInput
+        placeholder="Search Recipe"
+        style={styles.input}
+        value={props.searchText}
+        onChangeText={(text) => props.setSearchText(text)}
+        onSubmitEditing={props.onSubmit}
       />
-    </View>
-  )
-}
 
+      <Image
+        source={props.urlToImage}
+        resizeMode="cover"
+        style={{ width: 300, height: 300 }}
+      />
+
+      <Text>{props.title}</Text>
+    </ScrollView>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
-    margin: 10
+    margin: 10,
   },
 
   input: {
@@ -26,10 +40,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     color: "#111",
     borderWidth: 1,
-  }
-})
+  },
+});
 
-
-
-
-export default Searched
+export default Searched;
