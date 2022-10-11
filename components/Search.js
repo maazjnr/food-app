@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 const Search = () => {
 
 const myApi = "dc08124ff78a4ea9855372247525457d";
+
 const navigation = useNavigation();
 const [input, setInput] = useState("");
 
@@ -20,7 +21,7 @@ const [myData, setMyData] = useState([])
 
 const searchDataReq = () => {
 fetch(
-  `https://api.spoonacular.com/recipes/complexSearch?apiKey=${myApi}&number=200`
+  `https://api.spoonacular.com/recipes/complexSearch?apiKey=${myApi}&number=25`
 )
   .then((response) => response.json())
   .then((responseJson) => {
@@ -57,16 +58,22 @@ searchDataReq()
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#111",
     padding: 10,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
   },
 
   input: {
     backgroundColor: "#fff",
-    padding: 10,
+    padding: 15,
     borderRadius: 10,
     color: "#111",
     borderWidth: 1,
+    margin: 7,
+    width: 320,
+    height: 50
   },
 });
 
