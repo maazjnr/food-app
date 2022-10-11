@@ -1,46 +1,29 @@
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  Image,
-  ScrollView,
-} from "react-native";
+import { View, Text, FlatList } from 'react-native'
+import React from 'react'
 
-const Searched = (props) => {
+const Searched = ({data, input, setInput}) => {
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <TextInput
-        placeholder="Search Recipe"
-        style={styles.input}
-        value={props.searchText}
-        onChangeText={(text) => props.setSearchText(text)}
-        onSubmitEditing={props.onSubmit}
-      />
+    <View>
 
-      <Image
-        source={props.urlToImage}
-        resizeMode="cover"
-        style={{ width: 300, height: 300 }}
-      />
+      <FlatList data={data} 
+      renderItem={({item}) => {
+      if(input === "") {
+        return (
+          <View>
+            <Text>{item.title}</Text>
+          </View>
+        )
+      }
 
-      <Text>{props.title}</Text>
-    </ScrollView>
-  );
-};
+      if(item.title.toLowerCase().includes((input.toLowerCase))){
+        <View>
+        <Text>{item.title}</Text>
+      </View>
+      }
 
-const styles = StyleSheet.create({
-  container: {
-    margin: 10,
-  },
+      }} />
+    </View>
+  )
+}
 
-  input: {
-    backgroundColor: "#999",
-    padding: 10,
-    borderRadius: 10,
-    color: "#111",
-    borderWidth: 1,
-  },
-});
-
-export default Searched;
+export default Searched

@@ -1,78 +1,73 @@
-import { View, Text, StyleSheet, FlatList } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import Searched from '../screens/Searched'
-import axios from 'axios'
+import { View, Text, StyleSheet, TextInput } from "react-native";
+import React, { useEffect, useState, useLayoutEffect } from "react";
+import Searched from "../screens/Searched";
+import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
 
 const Search = () => {
 
-  const myApi = "dc08124ff78a4ea9855372247525457d";
+const myApi = "dc08124ff78a4ea9855372247525457d";
+const navigation = useNavigation();
+const [input, setInput] = useState("");
 
-  const [searchText, setSearchText] = useState('')
-  const [myData, setMyData] = useState([])
-
- const searchDataReq = () => {
-  fetch(
-    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${myApi}&number=3`
-  )
-    .then((response) => response.json())
-    .then((responseJson) => {
-      setMyData(responseJson.results);
-     
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-
- }
-
- useEffect(() => {
-  searchDataReq()
+useLayoutEffect(() => {
+  navigation.setOptions({
+    headerShown: false,
+  });
 }, []);
 
+const [myData, setMyData] = useState([])
 
-// const searchDataReq = () => {
+const searchDataReq = () => {
+fetch(
+  `https://api.spoonacular.com/recipes/complexSearch?apiKey=${myApi}&number=200`
+)
+  .then((response) => response.json())
+  .then((responseJson) => {
+    setMyData(responseJson.results);
+   
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 
-//   const options = {
-//     method: 'GET',
-//     url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random',
-//     params: {tags: 'vegetarian,dessert', q: searchText,  number: '1'},
-//     headers: {
-//       'X-RapidAPI-Key': 'dc811aafffmsh7cf2c61db109937p1ffcfajsne527db6bea89',
-//       'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
-//     }
-//   };
+}
 
-//   axios.get(options).then(function (response) {
-//     setMyData(response.data);
-//   }).catch(function (error) {
-//     console.error(error);
-//   });
+useEffect(() => {
+searchDataReq()
+}, []);
 
-// }
 
 
   return (
     <View style={styles.container}>
-     <Searched 
-     searchText={searchText} 
-     setSearchText={setSearchText}
-     onSubmit={searchDataReq}
-     />
-     <FlatList data={myData}
-     renderItem={({item}) => <Searched
-     urlToImage={item.image}
-     title={item.title}
-     /> } keyExtractor={(item) => item.title}
+      <TextInput
+        placeholder="Search Recipe"
+        style={styles.input}
+        value={input}
+        onChangeText={(text) => setInput(text)}
       />
+
+      <Searched data={myData} input={input} 
+      setInput={setInput} />
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
-  }
-})
+    backgroundColor: "#fff",
+    padding: 10,
+  },
 
-export default Search
+  input: {
+    backgroundColor: "#fff",
+    padding: 10,
+    borderRadius: 10,
+    color: "#111",
+    borderWidth: 1,
+  },
+});
+
+export default Search;
