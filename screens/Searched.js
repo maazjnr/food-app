@@ -1,5 +1,4 @@
 import { View, Text, FlatList, Image, ScrollView } from "react-native";
-import React from "react";
 
 const Searched = ({ data, input, setInput }) => {
   return (
