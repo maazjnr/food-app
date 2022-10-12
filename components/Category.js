@@ -1,10 +1,13 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
-const Category = ({ image, name }) => {
+const Category = ({ image, name}) => {
+  const navigation = useNavigation();
+
   return (
     <View>
-      <TouchableOpacity
+      <TouchableOpacity onPress={() => navigation.navigate('Search')}
         style={{ justifyContent: "center", margin: 5, marginBottom: 20 }}
       >
         <Image

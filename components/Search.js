@@ -2,6 +2,8 @@ import { View, Text, StyleSheet, TextInput } from "react-native";
 import React, { useEffect, useState, useLayoutEffect } from "react";
 import Searched from "../screens/Searched";
 import { useNavigation } from "@react-navigation/native";
+import Recipe from "../screens/Recipe";
+
 
 const Search = () => {
 
@@ -49,6 +51,8 @@ searchDataReq()
 
       <Searched data={myData} input={input} 
       setInput={setInput} />
+
+      <Recipe />
     </View>
   );
 };
